@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,11 @@
 </head>
 <body>
     <div class="problemas">
-        <h2>Problema 2: Suma de los números del 1 al 1000</h2>
-        <p>La suma de los números del 1 al 1000 es:</p>
-        <h3><?= $resultado ?></h3>
+        <h2>Problema 4: Suma de números pares e impares entre 1 y 200</h2>
+
+        <p>Suma de los números pares: <?= $resultado['pares'] ?></p>
+        <p>Suma de los números impares: <?= $resultado['impares'] ?></p>
+
         <br>
         <a href="index.php">Volver al menú principal</a>
     </div>

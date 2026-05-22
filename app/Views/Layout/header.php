@@ -8,5 +8,4 @@
 <body>
     <header>
         <h1 style="text-align:center;">Mini Proyecto</h1>
-        <hr>
     </header>

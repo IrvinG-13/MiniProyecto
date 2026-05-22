@@ -16,11 +16,40 @@ if ($problema === '1') {
     $controller = new Problema2Controller();
     $controller->procesar();
 
-} else {
+} 
+elseif ($problema === '4') {
 
-    echo '<h1>Menú Principal</h1>';
-    echo '<a href="index.php?problema=1">Problema 1</a><br>';
+    require_once 'app/Controllers/Problema4Controller.php';
+    $controller = new Problema4Controller();
+    $controller->procesar();
+
+}elseif ($problema === '6') {
+
+    require_once 'app/Controllers/Problema6Controller.php';
+    $controller = new Problema6Controller();
+    $controller->procesar();
+
+}elseif ($problema === '8') {
+
+    require_once 'app/Controllers/Problema8Controller.php';
+    $controller = new Problema8Controller();
+    $controller->procesar();
+
+}elseif ($problema === '9') {
+    require_once 'app/Controllers/Problema9Controller.php';
+    $controller = new Problema9Controller();
+    $controller->procesar();
+
+}else {
+
+    echo '<div class="menu-grid">';
+    echo '<a href="index.php?problema=1">Problema 1</a>';
     echo '<a href="index.php?problema=2">Problema 2</a>';
+    echo '<a href="index.php?problema=4">Problema 4</a>';
+    echo '<a href="index.php?problema=6">Problema 6</a>';
+    echo '<a href="index.php?problema=8">Problema 8</a>';
+    echo '<a href="index.php?problema=9">Problema 9</a>';
+    echo '</div>';
 }
 
 require_once 'app/Views/layout/footer.php';
