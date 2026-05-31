@@ -17,9 +17,7 @@
         <input type="number" step="any" name="num4" required placeholder="Número 4"><br><br>
         <input type="number" step="any" name="num5" required placeholder="Número 5"><br><br>
 
-        <!--
-            DROPDOWN DE OPERACIÓN
-        -->
+        <!-- Dropdown: el value de cada option es lo que recibe el controller -->
         <label for="operacion">¿Qué desea calcular?</label><br>
         <select name="operacion" id="operacion">
             <option value="media">Media</option>
@@ -33,16 +31,12 @@
 
     </form>
 
-    <!--
-        BLOQUE DE ERROR
-    -->
+    <!-- Muestra el error si hay uno -->
     <?php if (!empty($error)): ?>
         <p style="color:red;"><?php echo $error; ?></p>
     <?php endif; ?>
-
-    <!--
-        BLOQUE DE RESULTADO
-    -->
+    
+    <!-- Muestra el resultado si el cálculo fue exitoso -->
     <?php if (!empty($resultado)): ?>
         <h3>Resultado</h3>
         <p>
