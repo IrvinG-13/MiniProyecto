@@ -5,7 +5,7 @@
     <title>Estadísticas</title>
 </head>
 <body>
-
+    <div class="problemas">
     <h2>Ingrese 5 números positivos</h2>
 
     <form method="POST">
@@ -50,6 +50,7 @@
             <?php echo round($resultado['valor'], 2); ?>
         </p>
     <?php endif; ?>
-
+    <a href="index.php">Volver al menú principal</a>
+    </div>
 </body>
 </html>
