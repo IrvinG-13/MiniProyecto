@@ -1,22 +1,13 @@
 <?php
 require_once 'app/Models/NotasEstadistica.php';
-/**
- * Controlador Problema7Controller
- *
- * Gestiona el flujo en dos pasos:
- * Paso 1 → el usuario indica cuántas notas quiere ingresar.
- * Paso 2 → el usuario ingresa las notas y se calculan estadísticas.
- *
- * @package App\Controllers
- */
+
 class Problema7Controller
-{
-    /** @var string Método HTTP del formulario */
+{   //metodo HTTP para formulario 
     private const METODO_FORMULARIO = 'POST';
 
-    /** @return void */
+    //controla el flujo 
     public function procesar(): void
-    {
+    {// datos iniciales utilizados para la vista 
         $datos = [
             'paso'        => 1,
             'cantidad'    => null,
@@ -39,18 +30,12 @@ class Problema7Controller
 
         $this->cargarVista($datos);
     }
-
-    /**
-     * Procesa el paso 1: valida la cantidad de notas.
-     *
-     * @param  array $datos Estructura base
-     * @return array        Datos actualizados
-     */
+    //valida la cantidad de notas que seran ingresadaas
     private function procesarCantidad(array $datos): array
     {
         $crudo   = $_POST['cantidad'] ?? '';
         $limpio  = trim(strip_tags(htmlspecialchars($crudo, ENT_QUOTES, 'UTF-8')));
-
+        //verifica que sea un numero positivo 
         if (!ctype_digit($limpio) || (int) $limpio <= 0) {
             $datos['errores'][] = 'Ingresa un número entero positivo para la cantidad.';
             return $datos;
@@ -62,13 +47,7 @@ class Problema7Controller
 
         return $datos;
     }
-
-    /**
-     * Procesa el paso 2: valida las notas y calcula estadísticas.
-     *
-     * @param  array $datos Estructura base
-     * @return array        Datos actualizados
-     */
+    //valida las notas y genera la estadistica 
     private function procesarNotas(array $datos): array
     {
         $cantidad = (int) ($_POST['cantidad_hidden'] ?? 0);
@@ -83,26 +62,22 @@ class Problema7Controller
             $datos['errores'][] = 'Algunas notas no son válidas. Deben ser números entre 0 y 100.';
             return $datos;
         }
-
+        //Crea el modelo encragdo de los calculos 
         $modelo = new NotasEstadistica($notasValidas);
-
+        //obtiene las estadisticas principales 
         $promedio   = $modelo->calcularPromedio();
         $desviacion = $modelo->calcularDesviacion();
         $minimo     = $modelo->obtenerMinimo();
         $maximo     = $modelo->obtenerMaximo();
         $rendimiento = NotasEstadistica::interpretarRendimiento($promedio);
-
+        //guarda los datos para mostrarlos en pantalla
         $datos['paso']       = 3;
         $datos['notas']      = $notasValidas;
         $datos['resultados'] = compact('promedio', 'desviacion', 'minimo', 'maximo', 'rendimiento');
 
         return $datos;
     }
-
-    /**
-     * @param  array $datos Variables para la vista
-     * @return void
-     */
+    //envia los datos procesados a la vista 
     private function cargarVista(array $datos): void
     {
         extract($datos);

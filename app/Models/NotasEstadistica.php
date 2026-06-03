@@ -1,25 +1,14 @@
 <?php
 
-/**
- * Clase NotasEstadistica
- *
- * Calcula estadísticas sobre un conjunto de notas:
- * promedio, desviación estándar, mínimo y máximo.
- *
- * @package App\Models
- */
 class NotasEstadistica
 {
-    /** @var float[] Arreglo de notas ingresadas */
     private array $notas;
-
-    /** @param float[] $notas Notas a procesar */
+    // recibe las notas que seran procesadas 
     public function __construct(array $notas)
     {
         $this->notas = $notas;
     }
-
-    /** @return float Promedio de las notas */
+    //calcula el promedio de las notas 
     public function calcularPromedio(): float
     {
         $suma = 0.0;
@@ -28,39 +17,33 @@ class NotasEstadistica
         }
         return $suma / count($this->notas);
     }
-
-    /** @return float Desviación estándar poblacional */
+    //Desviación estándar muestral (n-1)
     public function calcularDesviacion(): float
     {
-        $promedio = $this->calcularPromedio();
-        $sumaDiferencias = 0.0;
+    $promedio        = $this->calcularPromedio();
+    $sumaDiferencias = 0.0;
 
-        foreach ($this->notas as $nota) {
-            $diferencia       = $nota - $promedio;
-            $sumaDiferencias += $diferencia * $diferencia;
-        }
-
-        return sqrt($sumaDiferencias / count($this->notas));
+    foreach ($this->notas as $nota) {
+        //calcula la difreencia con respecto al promedio 
+        $diferencia       = $nota - $promedio;
+        $sumaDiferencias += $diferencia * $diferencia;
     }
 
-    /** @return float Nota mínima */
+    // n-1 por tratarse de una muestra 
+    return sqrt($sumaDiferencias / (count($this->notas) - 1));
+}
+    //obtiene la nota mas baja 
     public function obtenerMinimo(): float
     {
         return min($this->notas);
     }
 
-    /** @return float Nota máxima */
+    //obtiene la nota mas alta
     public function obtenerMaximo(): float
     {
         return max($this->notas);
     }
-
-    /**
-     * Interpreta el promedio obtenido usando switch.
-     *
-     * @param  float  $promedio Promedio calculado
-     * @return string           Descripción del rendimiento
-     */
+    //switch para describir el rendimiento academico 
     public static function interpretarRendimiento(float $promedio): string
     {
         switch (true) {
@@ -80,22 +63,17 @@ class NotasEstadistica
 
         return $descripcion;
     }
-
-    /**
-     * Sanitiza y filtra un arreglo de notas crudas.
-     * Solo acepta números entre 0 y 100.
-     *
-     * @param  array    $entrada Valores crudos del formulario
-     * @return float[]           Notas válidas
-     */
+    //sanitiza, filtra y valida las notas recibidas del formulario 
     public static function filtrarNotas(array $entrada): array
     {
         $validas = [];
 
         foreach ($entrada as $valor) {
+            //elimina espacios y etiquetas HTML
             $limpio = strip_tags(trim($valor));
             if (is_numeric($limpio)) {
                 $numero = (float) $limpio;
+                //solo acepta numeros entre 0 y 100 
                 if ($numero >= 0 && $numero <= 100) {
                     $validas[] = $numero;
                 }

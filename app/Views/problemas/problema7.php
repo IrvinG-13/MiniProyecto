@@ -34,6 +34,8 @@
             name="cantidad"
             min="1"
             placeholder="Ej: 5"
+            oninvalid="this.setCustomValidity('Ingresa un número mayor que 0')"
+            oninput="this.setCustomValidity('')"
             required
         >
         <button type="submit">Continuar</button>
@@ -45,7 +47,7 @@
 <div class="tarjeta">
     <h2>Paso 2 — Ingresa las <?= (int) $cantidad ?> notas</h2>
     <form method="POST" action="">
-        <!-- Campo oculto para recordar la cantidad -->
+
         <input type="hidden" name="cantidad_hidden" value="<?= (int) $cantidad ?>">
 
         <?php for ($i = 1; $i <= $cantidad; $i++) : ?>
@@ -58,6 +60,8 @@
                 max="100"
                 step="0.01"
                 placeholder="0 - 100"
+                oninvalid="this.setCustomValidity('La nota debe estar entre 0 y 100')"
+                oninput="this.setCustomValidity('')"
                 required
             >
         <?php endfor; ?>
@@ -71,7 +75,6 @@
 <div class="tarjeta">
     <h2>Resultados</h2>
 
-    <!-- Notas ingresadas como chips -->
     <div class="chips">
         <?php foreach ($notas as $nota) : ?>
             <span class="chip"><?= number_format($nota, 2) ?></span>
@@ -110,6 +113,11 @@
     <a href="index.php?problema=7">Calcular de nuevo</a>
 </div>
 <?php endif; ?>
+
+<!-- Siempre visible -->
+<a href="index.php">← Volver al menú</a>
+
+<?php require_once 'app/Views/layout/footer.php'; ?>
 
 </body>
 </html>

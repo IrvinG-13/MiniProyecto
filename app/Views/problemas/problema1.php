@@ -2,48 +2,83 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticas</title>
+    <link rel="stylesheet" href="/Public/Css/general.css">
 </head>
 <body>
 
+<header>
+    <h1>Estadísticas de Números</h1>
+    <p>Ingresa 5 números positivos y elige la operación a calcular.</p>
+</header>
+
+<div class="tarjeta">
     <h2>Ingrese 5 números positivos</h2>
 
-    <form method="POST">
+    <!-- Errores -->
+    <?php if (!empty($error)) : ?>
+        <ul class="lista-errores">
+            <li><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></li>
+        </ul>
+    <?php endif; ?>
 
-        <!-- Inputs de números -->
-        <input type="number" step="any" name="num1" required placeholder="Número 1"><br><br>
-        <input type="number" step="any" name="num2" required placeholder="Número 2"><br><br>
-        <input type="number" step="any" name="num3" required placeholder="Número 3"><br><br>
-        <input type="number" step="any" name="num4" required placeholder="Número 4"><br><br>
-        <input type="number" step="any" name="num5" required placeholder="Número 5"><br><br>
+    <form method="POST" action="">
+        <?php for ($i = 1; $i <= 5; $i++) : ?>
+            <label for="num<?= $i ?>">Número <?= $i ?>:</label>
+            <input
+                type="number"
+                id="num<?= $i ?>"
+                name="num<?= $i ?>"
+                step="any"
+                min="1"
+                placeholder="Ingrese un número"
+                value="<?= isset($_POST["num$i"])
+                    ? htmlspecialchars($_POST["num$i"], ENT_QUOTES, 'UTF-8')
+                    : '' ?>"
+                required
+            >
+        <?php endfor; ?>
 
-        <!-- Dropdown: el value de cada option es lo que recibe el controller -->
-        <label for="operacion">¿Qué desea calcular?</label><br>
+        <label for="operacion">¿Qué desea calcular?</label>
         <select name="operacion" id="operacion">
-            <option value="media">Media</option>
-            <option value="minimo">Mínimo</option>
-            <option value="maximo">Máximo</option>
-            <option value="desviacion">Desviación estándar</option>
+            <?php
+            // Operaciones disponibles
+            $operaciones = [
+                'media'      => 'Media',
+                'minimo'     => 'Mínimo',
+                'maximo'     => 'Máximo',
+                'desviacion' => 'Desviación estándar',
+            ];
+            foreach ($operaciones as $valor => $etiqueta) :
+                $seleccionado = (isset($_POST['operacion']) && $_POST['operacion'] === $valor)
+                    ? 'selected'
+                    : '';
+            ?>
+                <option value="<?= $valor ?>" <?= $seleccionado ?>>
+                    <?= $etiqueta ?>
+                </option>
+            <?php endforeach; ?>
         </select>
-        <br><br>
 
         <button type="submit">Calcular</button>
-
     </form>
+</div>
 
-    <!-- Muestra el error si hay uno -->
-    <?php if (!empty($error)): ?>
-        <p style="color:red;"><?php echo $error; ?></p>
-    <?php endif; ?>
-    
-    <!-- Muestra el resultado si el cálculo fue exitoso -->
-    <?php if (!empty($resultado)): ?>
-        <h3>Resultado</h3>
-        <p>
-            <strong><?php echo ucfirst($resultado['operacion']); ?>:</strong>
-            <?php echo round($resultado['valor'], 2); ?>
-        </p>
-    <?php endif; ?>
+<!-- Resultado -->
+<?php if (!empty($resultado)) : ?>
+<div class="tarjeta">
+    <h2>Resultado</h2>
+    <p>
+        <strong><?= htmlspecialchars(ucfirst($resultado['operacion']), ENT_QUOTES, 'UTF-8') ?>:</strong>
+        <?= number_format((float) $resultado['valor'], 4) ?>
+    </p>
+</div>
+<?php endif; ?>
+
+<a href="index.php">← Volver al menú</a>
+
+<?php require_once 'app/Views/layout/footer.php'; ?>
 
 </body>
 </html>

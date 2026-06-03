@@ -10,11 +10,11 @@
 
 <header>
     <h1>Múltiplos de 4</h1>
-    <p>Genera los primeros N múltiplos de 4 e informa si hay desbordamiento.</p>
+    <p>Genera los primeros N múltiplos de 4. Si N supera <?= (int) $limiteMaximo ?>, se detectará desbordamiento.</p>
 </header>
 
-<!-- Formulario de entrada -->
 <div class="tarjeta">
+    <!-- Muestra los errores de validación -->
     <?php if (!empty($errores)) : ?>
         <ul class="lista-errores">
             <?php foreach ($errores as $error) : ?>
@@ -22,7 +22,7 @@
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
-
+    <!-- Formulario para ingresar la cantidad de múltiplos -->
     <form method="POST" action="">
         <label for="n">Valor de N (cantidad de múltiplos):</label>
         <input
@@ -34,19 +34,20 @@
             value="<?= isset($_POST['n'])
                 ? htmlspecialchars($_POST['n'], ENT_QUOTES, 'UTF-8')
                 : '' ?>"
+            oninvalid="this.setCustomValidity('Ingresa un número entero mayor que 0')"
+            oninput="this.setCustomValidity('')"
             required
         >
-        <p>Límite seguro sin desbordamiento: <strong><?= number_format($limiteSeguro) ?></strong></p>
+        <p>Límite máximo sin desbordamiento: <strong><?= (int) $limiteMaximo ?></strong>
+        (ingresar más causará desbordamiento)</p>
         <button type="submit">Generar múltiplos</button>
     </form>
 </div>
-
+<!-- Tabla con los resultados generados -->
 <?php if (!empty($multiplos)) : ?>
-<!-- Tabla de resultados -->
 <div class="tarjeta">
     <h2>Resultados para N = <?= (int) $n ?></h2>
 
-    <!-- Interpretación del rango (viene del switch del Modelo) -->
     <p><?= htmlspecialchars($magnitud, ENT_QUOTES, 'UTF-8') ?></p>
 
     <table>
@@ -58,24 +59,18 @@
             </tr>
         </thead>
         <tbody>
+        <!-- Genera dinámicamente cada fila de la tabla -->
             <?php foreach ($multiplos as $fila) : ?>
-                <tr>
+                <tr <?= $fila['desbordado'] ? 'class="fila-error"' : '' ?>>
                     <td><?= (int) $fila['indice'] ?></td>
                     <td>4 × <?= (int) $fila['indice'] ?></td>
-                    <td>
-                        <?php if ($fila['desbordado']) : ?>
-                        <?= htmlspecialchars((string) $fila['valor'], ENT_QUOTES, 'UTF-8') ?>
-                        <?php else : ?>
-                            <?= number_format((int) $fila['valor']) ?>
-                        <?php endif; ?>
-                    </td>
+                    <td><?= htmlspecialchars((string) $fila['valor'], ENT_QUOTES, 'UTF-8') ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
+    
     <?php
-    // Verificar si alguna fila tuvo desbordamiento
     $huboDesbordamiento = false;
     foreach ($multiplos as $fila) {
         if ($fila['desbordado']) {
@@ -86,14 +81,19 @@
     ?>
 
     <?php if ($huboDesbordamiento) : ?>
-        <p>
-        <strong>Desbordamiento detectado:</strong> PHP_INT_MAX en este sistema es
-        <strong><?= number_format(PHP_INT_MAX) ?></strong>.
-        El cálculo 4 × N supera ese límite y produciría un valor incorrecto.
+        <p class="alerta">
+        <strong>Desbordamiento detectado:</strong>
+        El valor de N supera el límite máximo de <?= (int) $limiteMaximo ?>.
+        A partir de este punto el resultado sería incorrecto.
         </p>
     <?php endif; ?>
+
 </div>
 <?php endif; ?>
+
+<a href="index.php">← Volver al menú</a>
+
+<?php require_once 'app/Views/layout/footer.php'; ?>
 
 </body>
 </html>

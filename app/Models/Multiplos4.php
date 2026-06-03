@@ -2,36 +2,36 @@
 
 class Multiplos4
 {
-    /** @var int Valor de N ingresado por el usuario */
     private int $n;
-
-    /** @var int Base del múltiplo (siempre 4) */
     private const BASE = 4;
+    //limite maximo permitido antes del desbordamiento 
+    private const LIMITE_MAXIMO = 20;
 
-    /** @param int $n Cantidad de múltiplos a generar */
+    //recibe la cantidad de multiplos que se generara 
     public function __construct(int $n)
     {
         $this->n = $n;
     }
 
-    /** @return array Arreglo con los resultados y metadatos de cada múltiplo */
     public function generarMultiplos(): array
     {
         $resultados = [];
 
         for ($i = 1; $i <= $this->n; $i++) {
-            $desbordado = $this->detectarDesbordamiento($i);
+
+            // determina si se supera el limite establecido
+            $desbordado = $i > self::LIMITE_MAXIMO;
 
             $valor = $desbordado
-                ? 'DESBORDAMIENTO (4 × ' . $i . ' > PHP_INT_MAX)'
+                ? 'DESBORDAMIENTO: 4 × ' . $i . ' supera el límite permitido'
                 : self::BASE * $i;
-
+            //Guarda la informacion de cada fila 
             $resultados[] = [
                 'indice'     => $i,
                 'valor'      => $valor,
                 'desbordado' => $desbordado,
             ];
-
+            //Detiene el proceso al detectar desbordamiento 
             if ($desbordado) {
                 break;
             }
@@ -39,26 +39,18 @@ class Multiplos4
 
         return $resultados;
     }
-
-    /**
-     * @param  int  $indice Iteración actual del bucle
-     * @return bool True si hay desbordamiento, false en caso contrario
-     */
+    //indica si la iteracion supera el limite permitido 
     public static function detectarDesbordamiento(int $indice): bool
     {
-        return $indice > intdiv(PHP_INT_MAX, self::BASE);
+        return $indice > self::LIMITE_MAXIMO;
     }
 
-    /** @return int Índice máximo seguro antes de desbordamiento */
-    public static function limiteSeguro(): int
+    public static function limiteMaximo(): int
     {
-        return intdiv(PHP_INT_MAX, 4);
+        return self::LIMITE_MAXIMO;
     }
-
-    /**
-     * @param  int    $n Valor ingresado
-     * @return string    Descripción de la magnitud
-     */
+    
+    //Mensajes de acuerdo al valor ingresado 
     public static function interpretarMagnitud(int $n): string
     {
         switch (true) {
@@ -68,14 +60,11 @@ class Multiplos4
             case $n <= 10:
                 $descripcion = 'Rango pequeño: se generarán pocos múltiplos.';
                 break;
-            case $n <= 1000:
-                $descripcion = 'Rango moderado: cálculo rápido y seguro.';
-                break;
-            case $n <= 1000000:
-                $descripcion = 'Rango grande: puede tardar un momento en mostrar.';
+            case $n <= 20:
+                $descripcion = 'Rango completo: se mostrarán todos los múltiplos.';
                 break;
             default:
-                $descripcion = 'Rango muy grande: riesgo de desbordamiento o lentitud.';
+                $descripcion = 'Rango superior al límite: se detectará desbordamiento.';
                 break;
         }
 

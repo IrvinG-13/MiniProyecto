@@ -1,36 +1,32 @@
 <?php
-
 require_once 'app/Models/Multiplos4.php';
 
 class Problema3Controller
 {
-    /** @var string Método HTTP del formulario */
+    //metodo HTTP para envio del formulario
     private const METODO_FORMULARIO = 'POST';
 
-    /** @return void */
     public function procesar(): void
     {
+        //datos iniciales utilizados para la vista 
         $datos = [
             'multiplos'    => [],
             'n'            => null,
             'magnitud'     => null,
-            'limiteSeguro' => Multiplos4::limiteSeguro(),
+            'limiteMaximo' => Multiplos4::limiteMaximo(),
             'errores'      => [],
         ];
-
+        //Procesa el formulario cuando se envia por post 
         if ($_SERVER['REQUEST_METHOD'] === self::METODO_FORMULARIO) {
             $datos = $this->procesarFormulario($datos);
         }
-
+        //carga la vista con los datos generados 
         $this->cargarVista($datos);
     }
 
-    /**
-     * @param  array $datos Estructura base para la vista
-     * @return array        Datos actualizados
-     */
     private function procesarFormulario(array $datos): array
     {
+    //obtiene y limpia el valor ingresado 
         $entradaCruda  = $_POST['n'] ?? '';
         $entradaLimpia = $this->sanitizarEntrada($entradaCruda);
         $errores       = $this->validarN($entradaLimpia);
@@ -49,22 +45,14 @@ class Problema3Controller
 
         return $datos;
     }
-
-    /**
-     * @param  string $entrada Valor crudo del POST
-     * @return string          Valor limpio
-     */
+    //limpia la entrada del usuario 
     private function sanitizarEntrada(string $entrada): string
     {
         $limpia = strip_tags($entrada);
         $limpia = htmlspecialchars($limpia, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         return trim($limpia);
     }
-
-    /**
-     * @param  string   $valor Cadena sanitizada a validar
-     * @return string[]        Lista de errores
-     */
+    // verifica que N sea un entero valido 
     private function validarN(string $valor): array
     {
         $errores = [];
@@ -80,11 +68,7 @@ class Problema3Controller
 
         return $errores;
     }
-
-    /**
-     * @param  array $datos Variables para la vista
-     * @return void
-     */
+    // envia los datos procesados a la vista
     private function cargarVista(array $datos): void
     {
         extract($datos);
