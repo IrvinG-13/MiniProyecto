@@ -1,5 +1,5 @@
 /* =========================================
-   Fonts: usar Google Fonts Roboto
+   Fonts: Google Fonts Roboto
 ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
@@ -39,10 +39,14 @@ h2 {
     margin-bottom: 20px;
 }
 
+table{
+    background-color: transparent;
+}
+
 /* =========================================
    Links & Buttons
 ========================================= */
-a, .boton-volver {
+a, .boton-volver, button {
     display: block;
     width: 220px;
     margin: 15px auto;
@@ -56,9 +60,10 @@ a, .boton-volver {
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-a:hover, .boton-volver:hover {
+a:hover, .boton-volver:hover, button:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     background: linear-gradient(135deg, #00b894, #00cec9);
@@ -78,7 +83,7 @@ footer {
 }
 
 /* =========================================
-   Menu Grid
+   Menú Grid
 ========================================= */
 .menu-grid {
     display: grid;
@@ -104,14 +109,14 @@ footer {
 }
 
 /* =========================================
-   Contenedor de problemas
+   Contenedores de Problemas
 ========================================= */
-.problemas {
+.problemas, .tarjeta {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: #fffaf5;
+    background: transparent;
     padding: 20px;
     margin: 30px auto;
     border-radius: 20px;
@@ -121,7 +126,7 @@ footer {
     transition: all 0.3s ease;
 }
 
-.problemas:hover {
+.problemas:hover, .tarjeta:hover {
     transform: translateY(-3px);
 }
 
@@ -130,7 +135,7 @@ footer {
 ========================================= */
 form {
     padding: 25px;
-    background: #ffffff;
+    background-color: transparent;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 90%;
@@ -138,7 +143,7 @@ form {
     margin: 20px auto;
 }
 
-input, button {
+input, select, button {
     display: block;
     width: 90%;
     margin: 12px auto;
@@ -149,27 +154,35 @@ input, button {
     transition: all 0.3s ease;
 }
 
-input:focus {
+input:focus, select:focus {
     border-color: #00adb5;
     outline: none;
     box-shadow: 0 0 8px rgba(0,173,181,0.5);
 }
 
-button {
-    background: linear-gradient(135deg, #00adb5, #00b894);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
+/* =========================================
+   Tablas de resultados
+========================================= */
+table {
+    width: 90%;
+    margin: 15px auto;
+    border-collapse: collapse;
 }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.fila-error {
+    background-color: #f87171;
+    color: #fff;
+    font-weight: bold;
 }
 
 /* =========================================
-   Problema 6: Barras de presupuesto
+   Problema 6: barras de presupuesto
 ========================================= */
 .resultados-presupuesto {
     width: 90%;
@@ -202,4 +215,19 @@ button:hover {
 
 .barra-grafica .barra:hover {
     opacity: 0.9;
+}
+
+/* =========================================
+   Mensajes de error
+========================================= */
+.lista-errores, .alerta {
+    width: 90%;
+    max-width: 450px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #f87171;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
 }

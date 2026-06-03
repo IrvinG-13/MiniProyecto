@@ -4,47 +4,49 @@ require_once 'app/Models/Estadistica.php';
 
 class EstadisticaController
 {
+    //Operaciones permitidas 
+    private const OPERACIONES_VALIDAS = ['media', 'minimo', 'maximo', 'desviacion'];
+
+    // valida los datos y envia el resultado a la vista 
     public function procesarFormulario(): void
     {
-        $resultado = [];
-        $error = '';
+        $resultado  = [];
+        $error      = '';
+        $numeros    = [];
+        $operacion  = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Recoge y valida los 5 números
-            $numeros = [];
 
+            // obtiene la operación seleccionada
+            $operacion = $_POST['operacion'] ?? '';
+
+            // recorre y valida los 5 numeros ingresados 
             for ($i = 1; $i <= 5; $i++) {
+                $numero = Estadistica::sanitizar($_POST["num$i"] ?? '');
 
-                $numero = Estadistica::sanitizar($_POST["num$i"]);
-
-                if (!is_numeric($numero) || $numero <= 0) {
-                    $error = 'Todos los números deben ser positivos';
+                if (!is_numeric($numero) || (float) $numero <= 0) {
+                    $error = 'Todos los números deben ser positivos y mayores que 0.';
                     break;
                 }
 
                 $numeros[] = (float) $numero;
             }
 
-            //Operaciones que son validas
-            $operacionesValidas = ['media', 'minimo', 'maximo', 'desviacion'];
-
-            // Leemos lo que el usuario eligió en el dropdown.
-            $operacion = $_POST['operacion'] ?? '';
-
-            // Verificamos que la operación sea una de las permitidas
-            if (!in_array($operacion, $operacionesValidas)) {
-                $error = 'Operación no válida';
+            // verifica que la operacion exista 
+            if (empty($error) && !in_array($operacion, self::OPERACIONES_VALIDAS, true)) {
+                $error = 'Operación no válida.';
             }
-            // Solo calcula si no hubo errores
+
+            // calcula si no hubo errores
             if (empty($error)) {
                 $estadistica = new Estadistica($numeros);
-                // Calcula solo la operación elegida
                 $resultado = [
-                    'operacion' => $operacion,     
-                    'valor'     => $estadistica->calcularOperacion($operacion) 
+                    'operacion' => $operacion,
+                    'valor'     => $estadistica->calcularOperacion($operacion),
                 ];
             }
         }
+
         require_once 'app/Views/problemas/problema1.php';
     }
 }
