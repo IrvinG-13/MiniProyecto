@@ -1,6 +1,6 @@
-/* =========================================
-   Fonts: Google Fonts Roboto
-========================================= */
+/* =======================
+   Google Fonts
+======================= */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 body {
@@ -12,18 +12,19 @@ body {
     flex-direction: column;
     min-height: 100vh;
     color: #2c3e50;
-    transition: background 0.3s ease;
 }
 
-/* =========================================
+/* =======================
    Header
-========================================= */
+======================= */
 header {
     text-align: center;
     background: linear-gradient(135deg, #222831, #393e46);
-    padding: 25px 0;
+    padding: 25px 20px;
     color: #fff;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 h1 {
@@ -39,42 +40,12 @@ h2 {
     margin-bottom: 20px;
 }
 
-table{
-    background-color: transparent;
-}
-
-/* =========================================
-   Links & Buttons
-========================================= */
-a, .boton-volver, button {
-    display: block;
-    width: 220px;
-    margin: 15px auto;
-    padding: 12px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
-    color: #fff;
-    background: linear-gradient(135deg, #00adb5, #00b894);
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-a:hover, .boton-volver:hover, button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    background: linear-gradient(135deg, #00b894, #00cec9);
-}
-
-/* =========================================
+/* =======================
    Footer
-========================================= */
+======================= */
 footer {
     text-align: center;
-    padding: 25px 0;
+    padding: 20px 0;
     margin-top: auto;
     background: linear-gradient(135deg, #222831, #393e46);
     color: #fff;
@@ -82,43 +53,55 @@ footer {
     letter-spacing: 0.5px;
 }
 
-/* =========================================
-   Menú Grid
-========================================= */
+/* =======================
+   Menú Principal
+======================= */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     width: 90%;
     max-width: 1000px;
     margin: 50px auto;
-    padding: 30px 0;
+    padding: 30px 20px;
     background: #181a1f;
     border-radius: 20px;
 }
 
 .menu-grid a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
     background: linear-gradient(135deg, #00adb5, #00b894);
     color: #fff;
     border-radius: 12px;
-    padding: 18px;
     font-weight: 600;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
 }
 
-/* =========================================
-   Contenedores de Problemas
-========================================= */
+.menu-grid a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #00b894, #00cec9);
+}
+
+/* =======================
+   Tarjetas de Problemas
+======================= */
 .problemas, .tarjeta {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: transparent;
-    padding: 20px;
-    margin: 30px auto;
+    background: #fffaf5;
+    padding: 25px;
+    margin: 20px auto;
     border-radius: 20px;
     width: 90%;
     max-width: 900px;
@@ -130,12 +113,12 @@ footer {
     transform: translateY(-3px);
 }
 
-/* =========================================
+/* =======================
    Formularios
-========================================= */
+======================= */
 form {
-    padding: 25px;
-    background-color: transparent;
+    padding: 20px;
+    background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 90%;
@@ -157,12 +140,25 @@ input, select, button {
 input:focus, select:focus {
     border-color: #00adb5;
     outline: none;
-    box-shadow: 0 0 8px rgba(0,173,181,0.5);
+    box-shadow: 0 0 8px rgba(0,173,181,0.4);
 }
 
-/* =========================================
-   Tablas de resultados
-========================================= */
+button {
+    background: linear-gradient(135deg, #00adb5, #00b894);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* =======================
+   Tablas y resultados
+======================= */
 table {
     width: 90%;
     margin: 15px auto;
@@ -181,9 +177,9 @@ table th, table td {
     font-weight: bold;
 }
 
-/* =========================================
+/* =======================
    Problema 6: barras de presupuesto
-========================================= */
+======================= */
 .resultados-presupuesto {
     width: 90%;
     margin: 25px auto;
@@ -217,9 +213,9 @@ table th, table td {
     opacity: 0.9;
 }
 
-/* =========================================
+/* =======================
    Mensajes de error
-========================================= */
+======================= */
 .lista-errores, .alerta {
     width: 90%;
     max-width: 450px;
@@ -230,4 +226,39 @@ table th, table td {
     border-radius: 8px;
     font-weight: bold;
     text-align: center;
+}
+
+/* =======================
+   Gráficas
+======================= */
+.grafica-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 25px auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* ================================
+   Botón Regresar / Volver
+================================= */
+a.volver {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 25px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff7675, #ffb199);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+a.volver:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #ffb199, #ff7675);
 }

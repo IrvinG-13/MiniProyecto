@@ -25,7 +25,7 @@
             </ul>
         <?php endif; ?>
 
-        <a href="index.php">Volver al menú principal</a>
+        <a href="index.php" class="volver">← Volver al menú</a>
     </div>
 </body>
 </html>

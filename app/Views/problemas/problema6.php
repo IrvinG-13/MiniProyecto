@@ -20,7 +20,7 @@
             <canvas id="graficaPresupuesto"></canvas>
         </div>
 
-        <a href="index.php" class="boton-volver">Volver al menú principal</a>
+        <a href="index.php" class="volver">← Volver al menú</a>
     </div>
 
     <!-- Cargar Chart.js desde CDN (sin descargar nada) -->

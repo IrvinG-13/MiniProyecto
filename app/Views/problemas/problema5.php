@@ -45,6 +45,7 @@
             >
         <?php endfor; ?>
         <button type="submit">Clasificar</button>
+        <a href="index.php" class="volver">← Volver al menú</a>
     </form>
 </div>
 
@@ -146,7 +147,7 @@
 
 <?php endif; ?>
 
-<a href="index.php">← Volver al menú</a>
+
 
 <?php require_once 'app/Views/layout/footer.php'; ?>
 

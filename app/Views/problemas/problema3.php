@@ -41,6 +41,8 @@
         <p>Límite máximo sin desbordamiento: <strong><?= (int) $limiteMaximo ?></strong>
         (ingresar más causará desbordamiento)</p>
         <button type="submit">Generar múltiplos</button>
+        <<a href="index.php" class="volver">← Volver al menú</a>
+
     </form>
 </div>
 <!-- Tabla con los resultados generados -->
@@ -91,7 +93,6 @@
 </div>
 <?php endif; ?>
 
-<a href="index.php">← Volver al menú</a>
 
 <?php require_once 'app/Views/layout/footer.php'; ?>
 

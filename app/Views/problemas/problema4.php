@@ -14,8 +14,7 @@
         <p>Suma de los números pares: <?= $resultado['pares'] ?></p>
         <p>Suma de los números impares: <?= $resultado['impares'] ?></p>
 
-        <br>
-        <a href="index.php">Volver al menú principal</a>
+        <a href="index.php" class="volver">← Volver al menú</a>
     </div>
 </body>
 </html>

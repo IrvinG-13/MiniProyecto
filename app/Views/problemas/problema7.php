@@ -40,6 +40,7 @@
         >
         <button type="submit">Continuar</button>
     </form>
+    
 </div>
 
 <!-- PASO 2: ingresar las notas -->
@@ -114,7 +115,7 @@
 </div>
 <?php endif; ?>
 
- <a href="index.php">Volver al menú principal</a>
+<a href="index.php" class="volver">← Volver al menú</a>
 
 <?php require_once 'app/Views/layout/footer.php'; ?>
 

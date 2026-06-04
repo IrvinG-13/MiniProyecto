@@ -11,6 +11,7 @@
 
 <header >
     <h1>Estadísticas de Números</h1>
+    <p>Ingresa 5 números positivos y elige la operación a calcular.</p>
 </header>
 
 <div class="tarjeta">
@@ -87,7 +88,7 @@
             <?php echo round($resultado['valor'], 2); ?>
         </p>
     <?php endif; ?>
-    <a href="index.php">Volver al menú principal</a>
+    <a href="index.php" class="volver">← Volver al menú</a>
     </div>
 
 <?php require_once 'app/Views/layout/footer.php'; ?>

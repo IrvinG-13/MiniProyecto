@@ -23,7 +23,7 @@
             <img src="<?= $resultado['imagen'] ?>" alt="<?= $resultado['estacion'] ?>" style="max-width:400px; display:block; margin:auto;">
         <?php endif; ?>
 
-        <a href="index.php">Volver al menú principal</a>
+        <a href="index.php" class="volver">← Volver al menú</a>
     </div>
 </body>
 </html>
