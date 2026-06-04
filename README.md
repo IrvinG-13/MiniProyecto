@@ -1,6 +1,5 @@
 # Mini Proyecto – Desarrollo de Software VII
 
-![Mini Proyecto](Public/Assets/logo.png)
 
 ## Descripción
 Este proyecto contiene una serie de problemas prácticos implementados en **PHP** usando arquitectura **MVC (Model-View-Controller)**. Cada problema se centra en cálculos matemáticos, estadísticas, manejo de datos, validación y visualización de resultados mediante tablas, listas y gráficas.
