@@ -97,6 +97,3 @@ http://localhost/MiniProyecto/index.php
 - La arquitectura **MVC** permite separar lógica de negocio, control y presentación.  
 - Todos los problemas incluyen **validación y manejo de errores** visibles para el usuario.
 
----
-
-**¡Listo para usar y entregar!**
