@@ -1,264 +1,283 @@
-/* =======================
-   Google Fonts
-======================= */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+/* ============================================================
+   general.css — Paleta HoteloApp (verde / ámbar)
+   Cubre: header, .problemas, .tarjeta, formularios, tablas,
+   .menu-grid, .lista-errores, .alerta, .chips, .volver, gráficas
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400&display=swap');
+
+:root {
+    /* Paleta base */
+    --verde:        #6D9773;   /* verde salvia    */
+    --verde-osc:    #0C3B2E;   /* verde bosque    */
+    --camel:        #BB8A52;   /* tierra / camel  */
+    --ambar:        #FFBA00;   /* acento ámbar    */
+
+    /* Derivados / neutros */
+    --fondo:        #EAEFE8;
+    --card:         #FFFFFF;
+    --texto:        #14271F;
+    --texto-suave:  #5B6E64;
+    --borde:        #DCE4DA;
+    --verde-soft:   #EAF1EA;   /* relleno suave de filas/hover */
+
+    --error-bg:     #FCEBEA;
+    --error:        #C0392B;
+
+    --radio:        18px;
+    --radio-sm:     12px;
+    --sombra:       0 10px 30px rgba(12, 59, 46, 0.08);
+    --sombra-hover: 0 16px 38px rgba(12, 59, 46, 0.16);
+}
+
+* { box-sizing: border-box; }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: #f0f2f8;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    color: #2c3e50;
+    margin: 0 auto;
+    max-width: 880px;
+    padding: 32px 20px 64px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--texto);
+    background: var(--fondo);
+    line-height: 1.55;
 }
 
-/* =======================
-   Header
-======================= */
+/* ---------- Tipografía ---------- */
+h1, h2, h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    color: var(--verde-osc);
+    line-height: 1.15;
+    margin: 0 0 .4em;
+}
+h1 { font-size: 2rem; letter-spacing: -.02em; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+
+p { margin: .4em 0; }
+
+a { color: var(--verde-osc); text-decoration: none; }
+a:hover { color: var(--ambar); }
+
+/* ---------- Hero / encabezado ---------- */
 header {
-    text-align: center;
-    background: linear-gradient(135deg, #222831, #393e46);
-    padding: 25px 20px;
+    background: var(--verde-osc);
     color: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: var(--radio);
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    box-shadow: var(--sombra);
 }
+header h1 { color: #fff; }
+header p  { color: rgba(255, 255, 255, .75); margin: 0; }
 
-h1 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 0;
+/* Contenedor simple (.problemas) */
+.problemas {
+    background: var(--card);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 28px 30px;
+    box-shadow: var(--sombra);
 }
+.problemas h2 { margin-top: 0; }
 
-h2 {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 20px;
+/* ---------- Tarjeta ---------- */
+.tarjeta {
+    background: var(--card);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 26px 28px;
+    margin-bottom: 22px;
+    box-shadow: var(--sombra);
 }
+.tarjeta h2 { margin-top: 0; }
 
-/* =======================
-   Footer
-======================= */
-footer {
-    text-align: center;
-    padding: 20px 0;
-    margin-top: auto;
-    background: linear-gradient(135deg, #222831, #393e46);
-    color: #fff;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-}
+/* ---------- Formularios ---------- */
+form { display: flex; flex-direction: column; gap: 6px; }
 
-/* =======================
-   Menú Principal
-======================= */
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 90%;
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px 20px;
-    background: #181a1f;
-    border-radius: 20px;
-}
-
-.menu-grid a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70px;
-    background: linear-gradient(135deg, #00adb5, #00b894);
-    color: #fff;
-    border-radius: 12px;
+label {
     font-weight: 600;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
-
-.menu-grid a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    background: linear-gradient(135deg, #00b894, #00cec9);
-}
-
-/* =======================
-   Tarjetas de Problemas
-======================= */
-.problemas, .tarjeta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background: #fffaf5;
-    padding: 25px;
-    margin: 20px auto;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 900px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.problemas:hover, .tarjeta:hover {
-    transform: translateY(-3px);
-}
-
-/* =======================
-   Formularios
-======================= */
-form {
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    width: 90%;
-    max-width: 450px;
-    margin: 20px auto;
-}
-
-input, select, button {
-    display: block;
-    width: 90%;
-    margin: 12px auto;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    transition: all 0.3s ease;
-}
-
-input:focus, select:focus {
-    border-color: #00adb5;
-    outline: none;
-    box-shadow: 0 0 8px rgba(0,173,181,0.4);
-}
-
-button {
-    background: linear-gradient(135deg, #00adb5, #00b894);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-/* =======================
-   Tablas y resultados
-======================= */
-table {
-    width: 90%;
-    margin: 15px auto;
-    border-collapse: collapse;
-}
-
-table th, table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.fila-error {
-    background-color: #f87171;
-    color: #fff;
-    font-weight: bold;
-}
-
-/* =======================
-   Problema 6: barras de presupuesto
-======================= */
-.resultados-presupuesto {
-    width: 90%;
-    margin: 25px auto;
-}
-
-.presupuesto-item {
-    margin-bottom: 25px;
-}
-
-.barra-grafica {
-    width: 100%;
-    height: 40px;
-    background-color: #eee;
-    border-radius: 15px;
-    overflow: hidden;
+    font-size: .9rem;
+    color: var(--texto-suave);
     margin-top: 8px;
 }
 
-.barra-grafica .barra {
-    height: 100%;
-    line-height: 40px;
-    text-align: right;
+input, select, textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--texto);
+    background: #fff;
+    border: 1.5px solid var(--borde);
+    border-radius: var(--radio-sm);
+    padding: 11px 14px;
+    width: 100%;
+    transition: border-color .15s, box-shadow .15s;
+}
+input::placeholder { color: #9aa89f; }
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 4px rgba(109, 151, 115, .18);
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230C3B2E' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+    cursor: pointer;
+}
+
+button {
+    margin-top: 16px;
+    align-self: flex-start;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    background: var(--verde);
+    border: none;
+    border-radius: var(--radio-sm);
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: background .18s, transform .1s, box-shadow .18s;
+}
+button:hover {
+    background: var(--verde-osc);
+    box-shadow: 0 8px 20px rgba(12, 59, 46, .22);
+}
+button:active { transform: translateY(1px); }
+
+/* ---------- Tablas ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    border-radius: var(--radio-sm);
+    overflow: hidden;
+    border: 1px solid var(--borde);
+}
+thead th {
+    background: var(--verde-osc);
     color: #fff;
     font-weight: 600;
-    padding-right: 12px;
-    border-radius: 15px 0 0 15px;
-    transition: width 0.5s ease;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: .9rem;
+    letter-spacing: .02em;
 }
-
-.barra-grafica .barra:hover {
-    opacity: 0.9;
+tbody td {
+    padding: 11px 16px;
+    border-top: 1px solid var(--borde);
+    font-size: .95rem;
 }
+tbody tr:nth-child(even) { background: var(--verde-soft); }
+tbody tr:hover { background: #dcebdc; }
 
-/* =======================
-   Mensajes de error
-======================= */
-.lista-errores, .alerta {
-    width: 90%;
-    max-width: 450px;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #f87171;
-    color: #fff;
-    border-radius: 8px;
-    font-weight: bold;
+/* Fila marcada como error (desbordamiento) */
+.fila-error, tr.fila-error { background: var(--error-bg) !important; color: var(--error); }
+.fila-error td { font-weight: 600; }
+
+/* ---------- Lista de errores ---------- */
+.lista-errores {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 14px 18px 14px 20px;
+    background: var(--error-bg);
+    border-left: 4px solid var(--error);
+    border-radius: var(--radio-sm);
+    color: var(--error);
+}
+.lista-errores li { margin: 2px 0; font-size: .92rem; }
+
+/* ---------- Alerta (ámbar) ---------- */
+.alerta {
+    background: #FFF6E0;
+    border-left: 4px solid var(--ambar);
+    border-radius: var(--radio-sm);
+    padding: 14px 18px;
+    margin-top: 14px;
+    color: #6b5300;
+}
+.alerta strong { color: #7a5c00; }
+
+/* ---------- Menú principal ---------- */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+}
+.menu-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 92px;
+    padding: 18px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
     text-align: center;
-}
-
-/* =======================
-   Gráficas
-======================= */
-.grafica-container {
-    width: 90%;
-    max-width: 500px;
-    margin: 25px auto;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-/* ================================
-   Botón Regresar / Volver
-================================= */
-a.volver {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 25px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #ff7675, #ffb199);
     color: #fff;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+    background: linear-gradient(150deg, var(--verde) 0%, var(--verde-osc) 100%);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    transition: transform .18s, box-shadow .18s;
+}
+.menu-grid a:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+    color: var(--ambar);
 }
 
-a.volver:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    background: linear-gradient(135deg, #ffb199, #ff7675);
+/* ---------- Chips (notas) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
+.chip {
+    background: var(--verde-soft);
+    color: var(--verde-osc);
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+/* ---------- Resultado presupuesto / gráficas ---------- */
+.resultados-presupuesto p {
+    background: var(--verde-soft);
+    border-radius: var(--radio-sm);
+    padding: 12px 16px;
+    margin: 8px 0;
+    font-weight: 600;
+}
+.grafica-container {
+    max-width: 420px;
+    margin: 22px auto;
+}
+canvas { display: block; margin: 22px auto; max-width: 100%; }
+
+/* ---------- Enlace volver ---------- */
+.volver {
+    display: inline-block;
+    margin-top: 18px;
+    font-weight: 600;
+    color: var(--verde-osc);
+    border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+}
+.volver:hover { color: var(--ambar); border-color: var(--ambar); }
+
+/* ---------- Footer ---------- */
+footer {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: .85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+    body { padding: 20px 14px 48px; }
+    header, .tarjeta, .problemas { padding: 20px 18px; }
+    button { align-self: stretch; text-align: center; }
 }
