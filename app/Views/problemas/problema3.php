@@ -41,7 +41,7 @@
         <p>Límite máximo sin desbordamiento: <strong><?= (int) $limiteMaximo ?></strong>
         (ingresar más causará desbordamiento)</p>
         <button type="submit">Generar múltiplos</button>
-        <<a href="index.php" class="volver">← Volver al menú</a>
+        <a href="index.php" class="volver">← Volver al menú</a>
 
     </form>
 </div>

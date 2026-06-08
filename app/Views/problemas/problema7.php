@@ -25,7 +25,7 @@
 <!-- PASO 1: pedir cantidad -->
 <?php if ($paso === 1) : ?>
 <div>
-    <h2>Paso 1 — ¿Cuántas notas deseas ingresar?</h2>
+    <h2>¿Cuántas notas deseas ingresar?</h2>
     <form method="POST" action="">
         <label for="cantidad">Cantidad de notas:</label>
         <input
@@ -46,7 +46,7 @@
 <!-- PASO 2: ingresar las notas -->
 <?php elseif ($paso === 2) : ?>
 <div class="tarjeta">
-    <h2>Paso 2 — Ingresa las <?= (int) $cantidad ?> notas</h2>
+    <h2>Ingresa las <?= (int) $cantidad ?> notas</h2>
     <form method="POST" action="">
 
         <input type="hidden" name="cantidad_hidden" value="<?= (int) $cantidad ?>">
@@ -73,7 +73,8 @@
 
 <!-- PASO 3: mostrar resultados -->
 <?php elseif ($paso === 3) : ?>
-<div >
+<div class="tarjeta">
+
     <h2>Resultados</h2>
 
     <div class="chips">
@@ -82,7 +83,7 @@
         <?php endforeach; ?>
     </div>
 
-    <table >
+    <table>
         <thead>
             <tr>
                 <th>Estadística</th>
@@ -109,14 +110,14 @@
         </tbody>
     </table>
 
-    <p><?= htmlspecialchars($resultados['rendimiento'], ENT_QUOTES, 'UTF-8') ?></p>
-
-    <a href="index.php?problema=7">Calcular de nuevo</a>
+    <div class="alerta">
+        <?= htmlspecialchars($resultados['rendimiento'], ENT_QUOTES, 'UTF-8') ?>
+    </div>
+    <a href="index.php?problema=7" class="volver">Calcular de nuevo</a>
 </div>
 <?php endif; ?>
 
 <a href="index.php" class="volver">← Volver al menú</a>
-
 <?php require_once 'app/Views/layout/footer.php'; ?>
 
 </body>

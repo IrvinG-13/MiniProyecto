@@ -73,26 +73,13 @@
     <h2>Resultado</h2>
     <p>
         <strong><?= htmlspecialchars(ucfirst($resultado['operacion']), ENT_QUOTES, 'UTF-8') ?>:</strong>
-        <?= number_format((float) $resultado['valor'], 4) ?>
+        <?= number_format((float) $resultado['valor'], 2) ?>
     </p>
 </div>
 <?php endif; ?>
 
-    <!--
-        BLOQUE DE RESULTADO
-    -->
-    <?php if (!empty($resultado)): ?>
-        <h3>Resultado</h3>
-        <p>
-            <strong><?php echo ucfirst($resultado['operacion']); ?>:</strong>
-            <?php echo round($resultado['valor'], 2); ?>
-        </p>
-    <?php endif; ?>
-    <a href="index.php" class="volver">← Volver al menú</a>
-    </div>
-
+<a href="index.php" class="volver">← Volver al menú</a>
 <?php require_once 'app/Views/layout/footer.php'; ?>
-
 
 </body>
 </html>
