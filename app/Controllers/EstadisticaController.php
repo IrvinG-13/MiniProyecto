@@ -1,46 +1,43 @@
 <?php
 
+require_once 'app/Models/Utilidades.php';
 require_once 'app/Models/Estadistica.php';
 
 class EstadisticaController
 {
-    //Operaciones permitidas 
-    private const OPERACIONES_VALIDAS = ['media', 'minimo', 'maximo', 'desviacion'];
-
-    // valida los datos y envia el resultado a la vista 
     public function procesarFormulario(): void
     {
-        $resultado  = [];
-        $error      = '';
-        $numeros    = [];
-        $operacion  = '';
+        $resultado = [];
+        $error     = '';
+        $numeros   = [];
+        $operacion = '';
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            // obtiene la operación seleccionada
-            $operacion = $_POST['operacion'] ?? '';
-
-            // recorre y valida los 5 numeros ingresados 
+        if (Utilidades::esPost()) {
+        // Sanitiza y valida los 5 números (OWASP XSS + whitelist)
             for ($i = 1; $i <= 5; $i++) {
-                $numero = Estadistica::sanitizar($_POST["num$i"] ?? '');
+                $valor = Utilidades::sanitizar($_POST["num$i"] ?? '');
 
-                if (!is_numeric($numero) || (float) $numero <= 0) {
+                if (!Utilidades::esNumeroPositivo($valor)) {
                     $error = 'Todos los números deben ser positivos y mayores que 0.';
                     break;
                 }
 
-                $numeros[] = (float) $numero;
+                $numeros[] = (float) $valor;
             }
 
-            // verifica que la operacion exista 
-            if (empty($error) && !in_array($operacion, self::OPERACIONES_VALIDAS, true)) {
-                $error = 'Operación no válida.';
+            // Valida la operación contra lista blanca (OWASP A03:2021 – whitelist)
+            if (empty($error)) {
+                $operacion = Utilidades::sanitizar($_POST['operacion'] ?? '');
+
+                if (!Utilidades::esOpcionValida($operacion, Estadistica::OPERACIONES_VALIDAS)) {
+                    $error = 'Operación no válida.';
+                }
             }
 
-            // calcula si no hubo errores
+            // Si no hubo errores da el calculo
             if (empty($error)) {
                 $estadistica = new Estadistica($numeros);
-                $resultado = [
+                $resultado   = [
                     'operacion' => $operacion,
                     'valor'     => $estadistica->calcularOperacion($operacion),
                 ];

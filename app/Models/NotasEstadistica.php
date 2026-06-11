@@ -1,80 +1,63 @@
 <?php
 
+require_once 'app/Models/Utilidades.php';
+
 class NotasEstadistica
 {
     private array $notas;
-    // recibe las notas que seran procesadas 
+
     public function __construct(array $notas)
     {
         $this->notas = $notas;
     }
-    //calcula el promedio de las notas 
+    // Calcula el promedio de las notas
     public function calcularPromedio(): float
     {
-        $suma = 0.0;
-        foreach ($this->notas as $nota) {
-            $suma += $nota;
-        }
-        return $suma / count($this->notas);
+        return Utilidades::promedio($this->notas);
     }
-    //Desviación estándar muestral (n-1)
+    // Calcula la desviación estándar de las notas
     public function calcularDesviacion(): float
     {
-    $promedio        = $this->calcularPromedio();
-    $sumaDiferencias = 0.0;
-
-    foreach ($this->notas as $nota) {
-        //calcula la difreencia con respecto al promedio 
-        $diferencia       = $nota - $promedio;
-        $sumaDiferencias += $diferencia * $diferencia;
+        return Utilidades::desviacionEstandar($this->notas);
     }
-
-    // n-1 por tratarse de una muestra 
-    return sqrt($sumaDiferencias / (count($this->notas) - 1));
-}
-    //obtiene la nota mas baja 
+    // Obtiene la nota más baja
     public function obtenerMinimo(): float
     {
-        return min($this->notas);
+        return Utilidades::minimo($this->notas);
     }
-
-    //obtiene la nota mas alta
+    // Obtiene la nota más alta
     public function obtenerMaximo(): float
     {
-        return max($this->notas);
+        return Utilidades::maximo($this->notas);
     }
-    //switch para describir el rendimiento academico 
+    // Menssaje según el promedio obtenido
     public static function interpretarRendimiento(float $promedio): string
     {
         switch (true) {
             case $promedio >= 90:
-                $descripcion = 'Excelente rendimiento.';
-                break;
+                return 'Excelente rendimiento.';
             case $promedio >= 70:
-                $descripcion = 'Buen rendimiento.';
-                break;
+                return 'Buen rendimiento.';
             case $promedio >= 50:
-                $descripcion = 'Rendimiento regular, puede mejorar.';
-                break;
+                return 'Rendimiento regular, puede mejorar.';
             default:
-                $descripcion = 'Rendimiento bajo, se recomienda refuerzo.';
-                break;
+                // Caso bajo rendimiento
+                return 'Rendimiento bajo, se recomienda refuerzo.';
         }
-
-        return $descripcion;
     }
-    //sanitiza, filtra y valida las notas recibidas del formulario 
+
     public static function filtrarNotas(array $entrada): array
     {
         $validas = [];
 
         foreach ($entrada as $valor) {
-            //elimina espacios y etiquetas HTML
-            $limpio = strip_tags(trim($valor));
+            // Limpia la entrada antes de validarla
+            $limpio = Utilidades::sanitizar((string) $valor);
+
             if (is_numeric($limpio)) {
                 $numero = (float) $limpio;
-                //solo acepta numeros entre 0 y 100 
-                if ($numero >= 0 && $numero <= 100) {
+               // Verifica que la nota esté dentro del rango permitido
+                if ($numero >= 0.0 && $numero <= 100.0) {
                     $validas[] = $numero;
                 }
             }

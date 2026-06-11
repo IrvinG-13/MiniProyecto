@@ -1,77 +1,52 @@
 <?php
+
+require_once 'app/Models/Utilidades.php';
 require_once 'app/Models/Multiplos4.php';
 
 class Problema3Controller
-{
-    //metodo HTTP para envio del formulario
-    private const METODO_FORMULARIO = 'POST';
-
+{   // Controla el flujo del problema y envía los datos a la vista
     public function procesar(): void
     {
-        //datos iniciales utilizados para la vista 
         $datos = [
-            'multiplos'    => [],
-            'n'            => null,
-            'magnitud'     => null,
-            'limiteMaximo' => Multiplos4::limiteMaximo(),
-            'errores'      => [],
+            'multiplos'         => [],
+            'n'                 => null,
+            'magnitud'          => null,
+            'huboDesbordamiento'=> false,
+            'limiteMaximo'      => Multiplos4::limiteMaximo(),
+            'errores'           => [],
         ];
-        //Procesa el formulario cuando se envia por post 
-        if ($_SERVER['REQUEST_METHOD'] === self::METODO_FORMULARIO) {
+
+        if (Utilidades::esPost()) {
             $datos = $this->procesarFormulario($datos);
         }
-        //carga la vista con los datos generados 
-        $this->cargarVista($datos);
-    }
 
+        extract($datos);
+        require_once 'app/Views/problemas/problema3.php';
+    }
+    // Valida la entrada, genera los múltiplos y prepara los datos para la vista
     private function procesarFormulario(array $datos): array
     {
-    //obtiene y limpia el valor ingresado 
-        $entradaCruda  = $_POST['n'] ?? '';
-        $entradaLimpia = $this->sanitizarEntrada($entradaCruda);
-        $errores       = $this->validarN($entradaLimpia);
+        // Sanitiza la entrada para prevenir XSS
+        $entradaLimpia = Utilidades::sanitizar($_POST['n'] ?? '');
 
-        if (!empty($errores)) {
-            $datos['errores'] = $errores;
+        // Verifica que N sea un entero positivo válido
+        if (!Utilidades::esEnteroPositivo($entradaLimpia)) {
+            $datos['errores'][] = 'Debes ingresar un número entero positivo válido (mayor que 0).';
             return $datos;
         }
 
         $n      = (int) $entradaLimpia;
         $modelo = new Multiplos4($n);
 
+        $multiplos = $modelo->generarMultiplos();
+
         $datos['n']         = $n;
-        $datos['multiplos'] = $modelo->generarMultiplos();
+        $datos['multiplos'] = $multiplos;
         $datos['magnitud']  = Multiplos4::interpretarMagnitud($n);
 
+        // Indica si el valor ingresado supera el límite permitido 
+        $datos['huboDesbordamiento'] = Multiplos4::detectarDesbordamiento($n);
+
         return $datos;
-    }
-    //limpia la entrada del usuario 
-    private function sanitizarEntrada(string $entrada): string
-    {
-        $limpia = strip_tags($entrada);
-        $limpia = htmlspecialchars($limpia, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        return trim($limpia);
-    }
-    // verifica que N sea un entero valido 
-    private function validarN(string $valor): array
-    {
-        $errores = [];
-
-        if ($valor === '' || !ctype_digit($valor)) {
-            $errores[] = 'Debes ingresar un número entero positivo válido.';
-            return $errores;
-        }
-
-        if ((int) $valor <= 0) {
-            $errores[] = 'El valor de N debe ser mayor que 0.';
-        }
-
-        return $errores;
-    }
-    // envia los datos procesados a la vista
-    private function cargarVista(array $datos): void
-    {
-        extract($datos);
-        require_once 'app/Views/problemas/problema3.php';
     }
 }

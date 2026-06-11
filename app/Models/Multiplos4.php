@@ -1,37 +1,37 @@
 <?php
 
+require_once 'app/Models/Utilidades.php';
+
 class Multiplos4
 {
     private int $n;
-    private const BASE = 4;
-    //limite maximo permitido antes del desbordamiento 
+
+    private const BASE          = 4;
     private const LIMITE_MAXIMO = 20;
 
-    //recibe la cantidad de multiplos que se generara 
     public function __construct(int $n)
     {
         $this->n = $n;
     }
-
+    // Genera los N primeros múltiplos de 4 y detecta desbordamiento
     public function generarMultiplos(): array
     {
         $resultados = [];
 
         for ($i = 1; $i <= $this->n; $i++) {
 
-            // determina si se supera el limite establecido
             $desbordado = $i > self::LIMITE_MAXIMO;
 
             $valor = $desbordado
                 ? 'DESBORDAMIENTO: 4 × ' . $i . ' supera el límite permitido'
                 : self::BASE * $i;
-            //Guarda la informacion de cada fila 
+
             $resultados[] = [
                 'indice'     => $i,
                 'valor'      => $valor,
                 'desbordado' => $desbordado,
             ];
-            //Detiene el proceso al detectar desbordamiento 
+
             if ($desbordado) {
                 break;
             }
@@ -39,35 +39,29 @@ class Multiplos4
 
         return $resultados;
     }
-    //indica si la iteracion supera el limite permitido 
-    public static function detectarDesbordamiento(int $indice): bool
+     // Determina si el valor de N supera el límite establecido
+    public static function detectarDesbordamiento(int $n): bool
     {
-        return $indice > self::LIMITE_MAXIMO;
+        return $n > self::LIMITE_MAXIMO;
     }
 
+    // Devuelve el límite máximo permitido para los cálculos
     public static function limiteMaximo(): int
     {
         return self::LIMITE_MAXIMO;
     }
-    
-    //Mensajes de acuerdo al valor ingresado 
+    // Interpreta el tamaño del valor ingresado por el usuario
     public static function interpretarMagnitud(int $n): string
     {
         switch (true) {
             case $n <= 0:
-                $descripcion = 'Valor inválido: N debe ser mayor que 0.';
-                break;
+                return 'Valor inválido: N debe ser mayor que 0.';
             case $n <= 10:
-                $descripcion = 'Rango pequeño: se generarán pocos múltiplos.';
-                break;
+                return 'Rango pequeño: se generarán pocos múltiplos.';
             case $n <= 20:
-                $descripcion = 'Rango completo: se mostrarán todos los múltiplos.';
-                break;
+                return 'Rango completo: se mostrarán todos los múltiplos.';
             default:
-                $descripcion = 'Rango superior al límite: se detectará desbordamiento.';
-                break;
+                return 'Rango superior al límite: se detectará desbordamiento.';
         }
-
-        return $descripcion;
     }
 }
