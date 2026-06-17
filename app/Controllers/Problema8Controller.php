@@ -3,22 +3,31 @@
 // Controlador encargado de manejar la lógica del problema 8:
 // Determinar la estación del año según la fecha ingresada por el usuario.
 
-require_once 'app/Models/EstacionAnio.php'; // Importa el modelo que contiene la lógica de cálculo
+require_once 'app/Models/EstacionAnio.php'; // Modelo que determina la estación
+require_once 'app/Utils/Utilidades.php';    // Clase de utilidades para sanitizar y validar
 
 class Problema8Controller
 {
-    // Función principal que procesa la solicitud del usuario
+    // Función principal que procesa la solicitud
     public function procesar()
     {
-        $resultado = null; // Inicializamos la variable que guardará los resultados
+        $resultado = null; // Variable que contendrá los resultados
+        $error = null;     // Variable para mensajes de error
 
-        // Verificamos que el formulario fue enviado mediante POST y que se ingresó una fecha
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['fecha'])) {
-            $fecha = $_POST['fecha']; // Obtenemos la fecha enviada por el usuario
-            $resultado = EstacionAnio::determinar($fecha); // Llamamos al modelo para determinar la estación
+        // Verifica si se envió un POST con fecha
+        if (Utilidades::esPost() && !empty($_POST['fecha'])) {
+            // Sanitiza la fecha ingresada
+            $fecha = Utilidades::sanitizar($_POST['fecha']);
+
+            // Validar que la fecha no esté vacía y sea válida
+            if (empty($fecha)) {
+                $error = "Por favor ingresa una fecha válida.";
+            } else {
+                $resultado = EstacionAnio::determinar($fecha);
+            }
         }
 
-        // Cargamos la vista correspondiente, pasando los resultados calculados
+        // Carga la vista y pasa resultado y error
         require_once 'app/Views/problemas/problema8.php';
     }
 }

@@ -19,8 +19,8 @@
         <h3><?= $resultado ?></h3>
 
         <br>
-        <!-- Enlace para regresar al menú principal -->
-        <a href="index.php" class="volver">← Volver al menú</a>
+         <!-- Enlace centralizado en Utilidades para no hardcodear la URL -->
+        <?= Utilidades::enlaceVolver('index.php') ?>
     </div>
 </body>
 </html>

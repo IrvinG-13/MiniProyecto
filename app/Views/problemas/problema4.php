@@ -16,8 +16,8 @@
         <p>Suma de los números pares: <?= $resultado['pares'] ?></p>
         <p>Suma de los números impares: <?= $resultado['impares'] ?></p>
 
-        <!-- Enlace para regresar al menú principal -->
-        <a href="index.php" class="volver">← Volver al menú</a>
+         <!-- Enlace centralizado en Utilidades para no hardcodear la URL -->
+          <?= Utilidades::enlaceVolver('index.php') ?>
     </div>
 </body>
 </html>

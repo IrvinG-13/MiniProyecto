@@ -1,28 +1,3 @@
-<?php
-// problema6.php
-
-// Si el formulario fue enviado, capturamos el presupuesto
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuesto'])) {
-    $presupuestoTotal = floatval($_POST['presupuesto']);
-
-    // Calculamos la distribución según porcentajes
-    $resultado = [
-        'Ginecologia'   => $presupuestoTotal * 0.40,
-        'Traumatologia' => $presupuestoTotal * 0.35,
-        'Pediatria'     => $presupuestoTotal * 0.25,
-    ];
-}
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Problema 6</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Public/Css/general.css">
-</head>
-<body>
 <div class="problemas">
     <h2>Problema 6: Reparto del presupuesto hospitalario</h2>
 
@@ -31,25 +6,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuesto'])) {
         <form method="POST" action="">
             <label for="presupuesto">Ingrese el presupuesto total del hospital:</label>
             <input type="number" name="presupuesto" id="presupuesto" min="1" step="any" required placeholder="Ej: 20000">
+
+            <?php if (!empty($error)): ?>
+                <p class="alerta"><?= $error ?></p>
+            <?php endif; ?>
+
             <button type="submit">Calcular distribución</button>
         </form>
     <?php else: ?>
         <!-- Resultados -->
         <div class="resultados-presupuesto">
-            <p>Ginecología (40%) - $<?= number_format($resultado['Ginecologia'], 2) ?></p>
-            <p>Traumatología (35%) - $<?= number_format($resultado['Traumatologia'], 2) ?></p>
-            <p>Pediatría (25%) - $<?= number_format($resultado['Pediatria'], 2) ?></p>
+            <p>🧾 Ginecología (40%) - $<?= number_format($resultado['Ginecologia'], 2) ?></p>
+            <p>🩺 Traumatología (35%) - $<?= number_format($resultado['Traumatologia'], 2) ?></p>
+            <p>👶 Pediatría (25%) - $<?= number_format($resultado['Pediatria'], 2) ?></p>
         </div>
 
         <div class="grafica-container">
             <canvas id="graficaPresupuesto"></canvas>
         </div>
 
-        <a href="index.php" class="volver">← Volver al menú</a>
+         <!-- Enlace centralizado en Utilidades para no hardcodear la URL -->
+            <?= Utilidades::enlaceVolver('index.php') ?>
     <?php endif; ?>
 </div>
-
-<!-- Chart.js desde CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <?php if (isset($resultado)) : ?>
@@ -92,5 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['presupuesto'])) {
     };
 </script>
 <?php endif; ?>
-</body>
-</html>

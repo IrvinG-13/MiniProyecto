@@ -3,26 +3,32 @@
 // Controlador encargado de manejar la lógica del problema 9:
 // Calcular las primeras 15 potencias de un número ingresado por el usuario.
 
-require_once 'app/Models/Potencia.php'; // Importa el modelo que realiza los cálculos de potencias
+require_once 'app/Models/Potencia.php';       // Modelo que calcula las potencias
+require_once 'app/Utils/Utilidades.php';      // Clase de helpers para validación y sanitización
 
 class Problema9Controller
 {
     public function procesar()
     {
-        $resultado = null; // Inicializamos el arreglo que contendrá las potencias
-        $numero = null;    // Inicializamos la variable para el número ingresado
+        $resultado = null; // Contendrá las 15 potencias
+        $numero = null;    // Número ingresado por el usuario
+        $error = null;     // Mensaje de error
 
-        // Validamos si se envió el formulario y el número no está vacío
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['numero'])) {
-            $numero = (int) $_POST['numero']; // Convertimos el input a entero
-            // Verificamos que el número esté dentro del rango permitido (1-9)
-            if ($numero >= 1 && $numero <= 9) {
-                // Llamamos al método del modelo para calcular las primeras 15 potencias
+        // Validamos que se envió POST y hay número
+        if (Utilidades::esPost() && !empty($_POST['numero'])) {
+            // Sanitizamos el input
+            $input = Utilidades::sanitizar($_POST['numero']);
+
+            // Validamos que sea un entero positivo entre 1 y 9
+            if (!Utilidades::esEnteroPositivo($input) || $input < 1 || $input > 9) {
+                $error = "Ingrese un número válido entre 1 y 9.";
+            } else {
+                $numero = (int)$input;
                 $resultado = Potencia::calcular($numero, 15);
             }
         }
 
-        // Cargamos la vista y le pasamos $resultado y $numero
+        // Cargamos la vista, pasando $resultado, $numero y $error
         require_once 'app/Views/problemas/problema9.php';
     }
 }
