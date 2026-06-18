@@ -1,6 +1,6 @@
 <?php
 require_once 'app/Models/PresupuestoHospital.php';
-require_once 'app/Utils/Utilidades.php'; // Importa la clase de helpers
+require_once 'app/Models/Utilidades.php'; // Importa la clase de helpers
 
 class Problema6Controller
 {

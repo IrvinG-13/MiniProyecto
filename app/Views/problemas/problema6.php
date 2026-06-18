@@ -16,9 +16,9 @@
     <?php else: ?>
         <!-- Resultados -->
         <div class="resultados-presupuesto">
-            <p>🧾 Ginecología (40%) - $<?= number_format($resultado['Ginecologia'], 2) ?></p>
-            <p>🩺 Traumatología (35%) - $<?= number_format($resultado['Traumatologia'], 2) ?></p>
-            <p>👶 Pediatría (25%) - $<?= number_format($resultado['Pediatria'], 2) ?></p>
+            <p> Ginecología (40%) - $<?= number_format($resultado['Ginecologia'], 2) ?></p>
+            <p> Traumatología (35%) - $<?= number_format($resultado['Traumatologia'], 2) ?></p>
+            <p> Pediatría (25%) - $<?= number_format($resultado['Pediatria'], 2) ?></p>
         </div>
 
         <div class="grafica-container">

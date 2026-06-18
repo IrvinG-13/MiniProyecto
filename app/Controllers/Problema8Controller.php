@@ -4,7 +4,7 @@
 // Determinar la estación del año según la fecha ingresada por el usuario.
 
 require_once 'app/Models/EstacionAnio.php'; // Modelo que determina la estación
-require_once 'app/Utils/Utilidades.php';    // Clase de utilidades para sanitizar y validar
+require_once 'app/Models/Utilidades.php';    // Clase de utilidades para sanitizar y validar
 
 class Problema8Controller
 {

@@ -4,7 +4,7 @@
 // Calcular las primeras 15 potencias de un número ingresado por el usuario.
 
 require_once 'app/Models/Potencia.php';       // Modelo que calcula las potencias
-require_once 'app/Utils/Utilidades.php';      // Clase de helpers para validación y sanitización
+require_once 'app/Models/Utilidades.php';      // Clase de helpers para validación y sanitización
 
 class Problema9Controller
 {

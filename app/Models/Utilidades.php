@@ -1,4 +1,7 @@
 <?php
+// Utilidades.php
+// Clase auxiliar del proyecto.
+// Contiene métodos reutilizables para validaciones, sanitización, operaciones matemáticas y navegación.
 
 class Utilidades
 {
@@ -20,12 +23,6 @@ class Utilidades
     public static function esEnteroPositivo(string $valor): bool
     {
         return (bool) preg_match('/^[1-9][0-9]*$/', $valor);
-    }
-
-    // Verifica que el correo tenga formato válido (usa filter_var)
-    public static function esCorreoValido(string $correo): bool
-    {
-        return filter_var($correo, FILTER_VALIDATE_EMAIL) !== false;
     }
 
     // Devuelve true si la petición fue enviada por POST
@@ -65,9 +62,11 @@ class Utilidades
     {
         $media = self::promedio($numeros);
         $suma  = 0.0;
+
         foreach ($numeros as $numero) {
             $suma += pow($numero - $media, 2);
         }
+
         return sqrt($suma / (count($numeros) - 1));
     }
 
@@ -83,12 +82,13 @@ class Utilidades
         return sqrt($numero);
     }
 
-    //NAVEGACIÓN d
+    // NAVEGACIÓN
 
     // Genera el enlace "Volver al menú" con la URL sanitizada
     public static function enlaceVolver(string $url): string
     {
         $urlSegura = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+
         return "<a href='{$urlSegura}' class='volver'>← Volver al menú</a>";
     }
 }

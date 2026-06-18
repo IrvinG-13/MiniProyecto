@@ -33,6 +33,6 @@
 
      <!-- Enlace centralizado en Utilidades para no hardcodear la URL -->
     <?= Utilidades::enlaceVolver('index.php') ?>
-</div>
+</div> 
 </body>
 </html>

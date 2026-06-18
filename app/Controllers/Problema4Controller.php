@@ -3,17 +3,18 @@
 // Controlador encargado de manejar la lógica del problema 4:
 // Sumar los números pares e impares del 1 al 200 y pasar el resultado a la vista correspondiente.
 
-require_once 'app/Models/SumaParImpar.php'; // Importa el modelo que calcula la suma de pares e impares
+// Importamos el modelo que realiza el cálculo de pares e impares.
+require_once __DIR__ . '/../Models/SumaParImpar.php';
+
 
 class Problema4Controller
 {
-    // Función principal que procesa la acción del problema 4
     public function procesar()
     {
-        // Llama al método estático de la clase SumaParImpar para calcular las sumas
+        // Llamamos al modelo que realiza los cálculos.
         $resultado = SumaParImpar::calcular();
 
-        // Carga la vista correspondiente y le pasa el resultado
-        require_once 'app/Views/problemas/problema4.php';
+        // Cargamos la vista y le pasamos el resultado.
+        require_once __DIR__ . '/../Views/problemas/problema4.php';
     }
 }
